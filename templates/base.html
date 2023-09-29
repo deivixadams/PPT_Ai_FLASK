@@ -4,50 +4,99 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <style>
-        /* Nuevos estilos para el título */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
         header {
-            text-align: center; /* Centra el texto */
-            margin-top: 20px; /* Espacio en la parte superior */
+        background-color: #3498db; /* Cambia el color de fondo según tu diseño */
+        padding: 20px; /* Ajusta el espaciado interno según tus necesidades */
+        border-bottom-right-radius: 95%; /* Ajusta el radio de la curvatura derecha según tus necesidades */
+        box-shadow: 0px 7px 0px rgba(250, 224, 131, 0.2); /* Agrega una sombra al borde inferior */
         }
 
-        header h1 {
-            color: blue; /* Color del texto */
-            font-weight: bold; /* Texto en negrita */
-            font-size: 4vw; /* Tamaño del texto relativo al ancho de la ventana */
+
+        #main-container {
+            display: flex;
+            min-height: 100vh; /* Asegurarse de que el main-container tenga como mínimo el alto de la ventana del navegador */
         }
 
-        /* Otros estilos */
+        nav {
+            background-color: #393838; /* Color de fondo del menú */
+            color: #fff; /* Color del texto del menú */
+            width: 200px; /* Ancho del menú */
+            padding: 1em; /* Espaciado interno del menú */
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Sombra del menú */
+            flex-shrink: 0; /* Evitar que el menú se encoja */
+            min-height: 100vh; /* Asegurarse de que el nav tenga como mínimo el alto de la ventana del navegador */
+        }
+
+        nav ul {
+            list-style-type: none; /* Quitar los bullets de la lista */
+            padding: 0; /* Quitar el padding de la lista */
+        }
+
         nav ul li a {
-            color: black;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.5s ease-in-out, font-size 0.5s ease-in-out;
+            color: #fff; /* Color de los links del menú */
+            text-decoration: none; /* Quitar el subrayado de los links */
+            display: block; /* Hacer que los links ocupen todo el espacio horizontal disponible */
+            padding: 0.5em 0; /* Espaciado interno de los links */
+            transition: background-color 0.3s ease; /* Transición suave del color de fondo */
         }
 
         nav ul li a:hover {
-            color: red;
-            font-size: 20px;
+            background-color: #555; /* Color de fondo de los links al pasar el mouse */
+        }
+
+        #content {
+            flex-grow: 1; /* Hacer que el contenido principal ocupe el espacio restante */
+            padding: 1em; /* Espaciado interno del contenido principal */
+        }
+
+        /* Para pantallas de ancho menor a 768px */
+        @media (max-width: 768px) {
+            nav {
+                width: 100%; /* Hacer que el menú ocupe todo el ancho disponible */
+            }
+            #main-container {
+                flex-direction: column; /* Cambiar la dirección de los elementos a columna */
+            }
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+    <!-- Este código es para el efecto de curvatura del header 
+    <svg height="0" width="0" style="position:absolute">
+        <defs>
+            <clipPath id="headerClip">
+                <path d="M0,0 L50%,0 Q100%,50% 50%,100% L0,100% Z"></path>
+            </clipPath>
+        </defs>
+    </svg>-->
+    
     <header>
-        <!-- Título agregado -->
         <h1>Presentación Everywhere</h1>
     </header>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('txt2ppt') }}" target="_blank">Texto a Presentación</a></li>
-            <li><a href="{{ url_for('pdf_a_presentacion') }}" target="_blank">PDF a Presentación</a></li>
-            <li><a href="{{ url_for('web_a_presentacion') }}" target="_blank">Web a Presentación</a></li>
-            <hr>
-            <li><a href="{{ url_for('list_presentations') }}" target="_blank">Bajar presentación</a></li>
-        </ul>
-    </nav>
-    <div>
-        {% block content %}{% endblock %}
+    <div id="main-container">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('txt2ppt') }}" target="_blank">Texto a Presentación</a></li>
+                <li><a href="{{ url_for('pdf_a_presentacion') }}" target="_blank">PDF a Presentación</a></li>
+                <li><a href="{{ url_for('web_a_presentacion') }}" target="_blank">Web a Presentación</a></li>
+                <hr>
+                <li><a href="{{ url_for('list_presentations') }}" target="_blank">Bajar presentación</a></li>
+            </ul>
+        </nav>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 </body>
 </html>
