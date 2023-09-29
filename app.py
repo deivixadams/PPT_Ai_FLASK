@@ -23,6 +23,8 @@ def home():
 @app.route('/txt2ppt', methods=['POST', 'GET'])  
 def txt2ppt():
     dataslide = []  # Asegúrate de que dataslide esté definido
+    mensaje = None  # Inicializa mensaje con None
+
     if request.method == 'POST':
         data = request.json
         tema = data.get('tema')
@@ -33,31 +35,22 @@ def txt2ppt():
         response = tools_instance.PromptLC_Text2ppt(datatxt)
         
         dataslide = info_converter.convertir_info(response)  # Actualiza dataslide con la respuesta
+        #creador_presentacion.crear_presentacion(dataslide)
         
-        creador_presentacion.crear_presentacion(dataslide)
+        if dataslide is None:
+            mensaje = "Error: No se pudo crear la presentación porque 'dataslide' es None"
+            return jsonify({'mensaje': mensaje})
         
-    return render_template('txt2ppt.html', dataslide=dataslide)  # Pasa dataslide a la plantilla
+        ruta_guardado = creador_presentacion.crear_presentacion(dataslide, tema)
+        if ruta_guardado:  # Si la ruta de guardado existe, la creación fue exitosa.
+            mensaje = '¡Presentación creada! Puede descargarla en la página de "Listado de presentaciones".'
+        else:  # Si la ruta de guardado es None, hubo un error.
+            mensaje = 'Hubo un error al crear la presentación.'
+        return jsonify({'mensaje': mensaje})  # Devuelve un JSON con el mensaje
 
+    #return render_template('txt2ppt.html', dataslide=dataslide, mensaje=mensaje)  # Pasa dataslide a la plantilla
+    return render_template('txt2ppt.html',  mensaje=mensaje)  # Pasa dataslide a la plantilla
 
-#para bajar el archivo ppt creado
-@app.route('/usar_texto', methods=['POST'])
-def usar_texto():
-    dataslide = request.get_json()
-    ruta_archivo = creador_presentacion.crear_presentacion(dataslide)
-    if ruta_archivo:
-        # Extrae el nombre del archivo de la ruta del archivo
-        nombre_archivo = os.path.basename(ruta_archivo)
-        return jsonify({"success": True, "ruta_descarga": url_for('descargas', filename=nombre_archivo)})
-    else:
-        return jsonify({"success": False, "error": "No se pudo crear la presentación."})
-
-'''
-@app.route('/list_presentations')
-def list_presentations():
-    directory = "RESULTADO"
-    files = [f for f in os.listdir(directory) if f.endswith('.pptx')]
-    return render_template('list_presentations.html', files=files)
-'''
 
 @app.route('/list_presentations')
 def list_presentations():

@@ -21,14 +21,18 @@ from datetime import datetime
 
 class PresentationCreator:
 
-    def crear_presentacion(self, info):
+    def crear_presentacion(self, dataslide, tema):
+        if dataslide is None:  # Comprueba si dataslide es None
+            print("Error: 'dataslide' no puede ser None")
+            return None  # Retorna None o maneja este caso como prefieras
+         
         #infojson = self.convertir_info(info)
         #print("Creando presentación...\n")
         prs = Presentation()
         ahora = datetime.now()
         fecha_hora = ahora.strftime("fecha-%d-%m-%Y_hora-%H-%M-%S")
         
-        for slide_info in info:
+        for slide_info in dataslide:
             slide_layout = prs.slide_layouts[5]
             slide = prs.slides.add_slide(slide_layout)
             title_box = slide.shapes.title
@@ -41,7 +45,7 @@ class PresentationCreator:
             p = tf.add_paragraph()
             p.text = slide_info["content"]
         
-        nombre_archivo = f"{fecha_hora}.pptx"
+        nombre_archivo = f"{tema}-{fecha_hora}.pptx"
         ruta_guardado = os.path.join("RESULTADO", nombre_archivo)
         try:
             prs.save(ruta_guardado)

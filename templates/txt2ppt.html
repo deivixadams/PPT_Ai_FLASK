@@ -16,11 +16,9 @@
 <!-- Aquí es donde se añadirá el enlace de descarga cuando esté disponible -->
 <div id="areaDescarga"></div>
 
-<button id="usarTextoBtn">Usar Texto</button>
-
-
 <script>
-    function submitForm() {
+
+function submitForm() {
         const form = document.getElementById('myForm');
         const tema = form.querySelector('#tema').value;
         const cantidad = form.querySelector('#cantidad').value;
@@ -38,45 +36,24 @@
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(html => {
-            console.log('¡Éxito! Respuesta recibida:', data);
-            // Aquí puedes agregar cualquier lógica adicional para manejar la respuesta, 
-            // como mostrar un mensaje al usuario o actualizar el DOM.
+        .then(data => {
+            alert(data.mensaje);  // Muestra el mensaje recibido del servidor
         })
         .catch(error => console.error('Error:', error));
     }
 
-    function resetValue() 
-    {
-    console.log('¡El formulario ha sido limpiado!');
-    // Aquí puedes poner cualquier otra lógica que quieras ejecutar cuando el formulario se limpie.
-    }
 
     function updateValue(value) {
         document.getElementById('cantidadValor').textContent = value;
     }
 
-    $(document).ready(function(){
-        $('#usarTextoBtn').click(function(){
-            var dataslide = {{ dataslide | tojson | safe }};
-            $.post('/usar_texto', JSON.stringify(dataslide), function(response){
-                if(response.success) {
-                    var linkDescarga = document.createElement('a');
-                    linkDescarga.href = response.ruta_descarga;
-                    linkDescarga.textContent = "Descargar Presentación";
-                    document.getElementById('areaDescarga').appendChild(linkDescarga);
-                } else {
-                    alert('Error al crear la presentación.');
-                }
-            }, 'json');
-        });
-
-        $('#rehacerBtn').click(function(){
-            location.reload();
-        });
-    });
-
-
 </script>
+
+<!-- Si se ha creado un ppt de forma adecuada -->
+{% if mensaje %}
+    <script>
+        alert("{{ mensaje }}");
+    </script>
+{% endif %}
 
 {% endblock %}
