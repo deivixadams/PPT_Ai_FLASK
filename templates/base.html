@@ -1,1 +1,33 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        nav ul li a {
+            color: black; /* Color inicial del texto */
+            text-decoration: none; /* Elimina el subrayado del texto */
+            font-size: 16px; /* Tamaño inicial del texto */
+            transition: color 0.5s ease-in-out, font-size 0.5s ease-in-out; /* Efecto de transición suave */
+        }
+
+        nav ul li a:hover {
+            color: red; /* Color del texto cuando el mouse está encima */
+            font-size: 20px; /* Tamaño del texto cuando el mouse está encima */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('txt2ppt') }}" target="_blank">Texto a Presentación</a></li>
+            <li><a href="{{ url_for('pdf_a_presentacion') }}" target="_blank">PDF a Presentación</a></li>
+            <li><a href="{{ url_for('web_a_presentacion') }}" target="_blank">Web a Presentación</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
