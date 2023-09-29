@@ -13,12 +13,6 @@
     <button type="reset" onclick="resetValue()">Limpiar</button>
 </form>
 
-<!-- Aquí es donde se añadirá el enlace de descarga cuando esté disponible -->
-<div id="areaDescarga"></div>
-
-<button id="usarTextoBtn">Usar Texto</button>
-
-
 <script>
     function submitForm() {
         const form = document.getElementById('myForm');
@@ -61,10 +55,8 @@
             var dataslide = {{ dataslide | tojson | safe }};
             $.post('/usar_texto', JSON.stringify(dataslide), function(response){
                 if(response.success) {
-                    var linkDescarga = document.createElement('a');
-                    linkDescarga.href = response.ruta_descarga;
-                    linkDescarga.textContent = "Descargar Presentación";
-                    document.getElementById('areaDescarga').appendChild(linkDescarga);
+                    var linkDescarga = '<a href="' + response.ruta_descarga + '">Descargar Presentación</a>';
+                    $('#areaDescarga').html(linkDescarga);
                 } else {
                     alert('Error al crear la presentación.');
                 }

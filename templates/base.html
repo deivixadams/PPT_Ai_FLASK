@@ -4,26 +4,46 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <style>
+        /* Nuevos estilos para el título */
+        header {
+            text-align: center; /* Centra el texto */
+            margin-top: 20px; /* Espacio en la parte superior */
+        }
+
+        header h1 {
+            color: blue; /* Color del texto */
+            font-weight: bold; /* Texto en negrita */
+            font-size: 4vw; /* Tamaño del texto relativo al ancho de la ventana */
+        }
+
+        /* Otros estilos */
         nav ul li a {
-            color: black; /* Color inicial del texto */
-            text-decoration: none; /* Elimina el subrayado del texto */
-            font-size: 16px; /* Tamaño inicial del texto */
-            transition: color 0.5s ease-in-out, font-size 0.5s ease-in-out; /* Efecto de transición suave */
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.5s ease-in-out, font-size 0.5s ease-in-out;
         }
 
         nav ul li a:hover {
-            color: red; /* Color del texto cuando el mouse está encima */
-            font-size: 20px; /* Tamaño del texto cuando el mouse está encima */
+            color: red;
+            font-size: 20px;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+    <header>
+        <!-- Título agregado -->
+        <h1>Presentación Everywhere</h1>
+    </header>
     <nav>
         <ul>
             <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('txt2ppt') }}" target="_blank">Texto a Presentación</a></li>
             <li><a href="{{ url_for('pdf_a_presentacion') }}" target="_blank">PDF a Presentación</a></li>
             <li><a href="{{ url_for('web_a_presentacion') }}" target="_blank">Web a Presentación</a></li>
+            <hr>
+            <li><a href="{{ url_for('list_presentations') }}" target="_blank">Bajar presentación</a></li>
         </ul>
     </nav>
     <div>

@@ -46,8 +46,10 @@ class PresentationCreator:
         try:
             prs.save(ruta_guardado)
             if os.path.exists(ruta_guardado):
-                (f"He creado el archivo:{fecha_hora} \n")
+                return ruta_guardado 
+                #(f"He creado el archivo:{fecha_hora} \n")
         except PermissionError:
             print("No se pudo crear el archivo, probablemente esté abierto.")
+            return None
 
 
