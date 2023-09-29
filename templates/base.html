@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <style>
+<meta charset="utf-8"/>
+<title>{{ title }}</title>
+<style>
         body {
             margin: 0;
             padding: 0;
@@ -67,11 +68,18 @@
                 flex-direction: column; /* Cambiar la dirección de los elementos a columna */
             }
         }
+    
+    button:hover {
+        background-color: #2E8BC0; /* Cambiando el color de fondo al hacer hover */
+        cursor: pointer; /* Cambiando el cursor a mano al hacer hover */
+        box-shadow: 0px 0px 15px #5E5E5E; /* Añadiendo una sombra al hacer hover */
+        transform: scale(1.05); /* Aumentando el tamaño al hacer hover */
+    }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <!-- Este código es para el efecto de curvatura del header 
+<!-- Este código es para el efecto de curvatura del header 
     <svg height="0" width="0" style="position:absolute">
         <defs>
             <clipPath id="headerClip">
@@ -79,24 +87,23 @@
             </clipPath>
         </defs>
     </svg>-->
-    
-    <header>
-        <h1>Presentación Everywhere</h1>
-    </header>
-    <div id="main-container">
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('txt2ppt') }}" target="_blank">Texto a Presentación</a></li>
-                <li><a href="{{ url_for('pdf_a_presentacion') }}" target="_blank">PDF a Presentación</a></li>
-                <li><a href="{{ url_for('web_a_presentacion') }}" target="_blank">Web a Presentación</a></li>
-                <hr>
-                <li><a href="{{ url_for('list_presentations') }}" target="_blank">Bajar presentación</a></li>
-            </ul>
-        </nav>
-        <div id="content">
+<header>
+<h1>Presentación Everywhere</h1>
+</header>
+<div id="main-container">
+<nav>
+<ul>
+<li><a href="{{ url_for('home') }}">Home</a></li>
+<li><a href="{{ url_for('txt2ppt') }}" target="_blank">Texto a Presentación</a></li>
+<li><a href="{{ url_for('pdf_a_presentacion') }}" target="_blank">PDF a Presentación</a></li>
+<li><a href="{{ url_for('web_a_presentacion') }}" target="_blank">Web a Presentación</a></li>
+<hr/>
+<li><a href="{{ url_for('list_presentations') }}" target="_blank">Bajar presentación</a></li>
+</ul>
+</nav>
+<div id="content">
             {% block content %}{% endblock %}
         </div>
-    </div>
+</div>
 </body>
 </html>
