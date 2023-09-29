@@ -50,6 +50,14 @@ function submitForm() {
         document.getElementById('cantidadValor').textContent = value;
     }
 
+    function resetValue() {
+        // Obtener el formulario y resetearlo
+        document.getElementById('myForm').reset();
+        
+        // Restablecer el valor del span 'cantidadValor' a 1
+        document.getElementById('cantidadValor').textContent = "1";
+}
+
 </script>
 <!-- Si se ha creado un ppt de forma adecuada -->
 {% if mensaje %}
