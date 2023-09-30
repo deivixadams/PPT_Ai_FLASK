@@ -1,73 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrarse</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            margin-top: 100px;
-        }
-        .card {
-            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-        }
-        .btn-primary, .btn-secondary {
-            width: 48% !important; /* ¡Usa con precaución! */
-        }
-        label {
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Registrarse</h3>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ url_for_security('register') }}">
-                        {{ register_user_form.hidden_tag() }}
-                        <div class="form-group">
-                            <label for="email">{{ register_user_form.email.label }}</label>
-                            {{ register_user_form.email(id='email', class='form-control') }}
-                            {% for error in register_user_form.email.errors %}
-                                <span class="text-danger">{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                        <div class="form-group">
-                            <label for="password">{{ register_user_form.password.label }}</label>
-                            {{ register_user_form.password(id='password', class='form-control') }}
-                            {% for error in register_user_form.password.errors %}
-                                <span class="text-danger">{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                        <div class="form-group">
-                            <label for="password_confirm">{{ register_user_form.password_confirm.label }}</label>
-                            {{ register_user_form.password_confirm(id='password_confirm', class='form-control') }}
-                            {% for error in register_user_form.password_confirm.errors %}
-                                <span class="text-danger">{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                        <input type="submit" value="Registrarse" class="btn btn-primary">
-                    </form>
-                </div>
-            </div>
-        </div>
+{% extends "security/base_security.html" %}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block header %}Registrarse{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for_security('register') }}">
+    {{ register_user_form.hidden_tag() }}
+    <div class="form-group">
+        <label for="email">{{ register_user_form.email.label }}</label>
+        {{ register_user_form.email(id='email', class='form-control') }}
+        {% for error in register_user_form.email.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <div class="form-group">
+        <label for="password">{{ register_user_form.password.label }}</label>
+        {{ register_user_form.password(id='password', class='form-control') }}
+        {% for error in register_user_form.password.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label for="password_confirm">{{ register_user_form.password_confirm.label }}</label>
+        {{ register_user_form.password_confirm(id='password_confirm', class='form-control') }}
+        {% for error in register_user_form.password_confirm.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <input type="submit" value="Registrarse" class="btn btn-primary">
+</form>
+{% endblock %}

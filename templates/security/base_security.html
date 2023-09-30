@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .card {
+            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        .btn-primary, .btn-secondary {
+            width: 48%; /* Controla el ancho de los botones */
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        label {
+            margin-top: 10px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-primary, .btn-secondary {
+            width: 48% !important; /* ¡Usa con precaución! */
+        }
+    </style>
+    {% block additional_styles %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{% block header %}{% endblock %}</h3>
+                </div>
+                <div class="card-body">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% block additional_scripts %}{% endblock %}
+</body>
+</html>
