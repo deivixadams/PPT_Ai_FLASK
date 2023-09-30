@@ -2,81 +2,91 @@
 
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>{{ title }}</title>
-<style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-        background-color: #3498db; /* Cambia el color de fondo según tu diseño */
-        padding: 20px; /* Ajusta el espaciado interno según tus necesidades */
-        border-bottom-right-radius: 95%; /* Ajusta el radio de la curvatura derecha según tus necesidades */
-        box-shadow: 0px 7px 0px rgba(250, 224, 131, 0.2); /* Agrega una sombra al borde inferior */
-        }
-
-
-        #main-container {
-            display: flex;
-            min-height: 100vh; /* Asegurarse de que el main-container tenga como mínimo el alto de la ventana del navegador */
-        }
-
-        nav {
-            background-color: #393838; /* Color de fondo del menú */
-            color: #fff; /* Color del texto del menú */
-            width: 200px; /* Ancho del menú */
-            padding: 1em; /* Espaciado interno del menú */
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Sombra del menú */
-            flex-shrink: 0; /* Evitar que el menú se encoja */
-            min-height: 100vh; /* Asegurarse de que el nav tenga como mínimo el alto de la ventana del navegador */
-        }
-
-        nav ul {
-            list-style-type: none; /* Quitar los bullets de la lista */
-            padding: 0; /* Quitar el padding de la lista */
-        }
-
-        nav ul li a {
-            color: #fff; /* Color de los links del menú */
-            text-decoration: none; /* Quitar el subrayado de los links */
-            display: block; /* Hacer que los links ocupen todo el espacio horizontal disponible */
-            padding: 0.5em 0; /* Espaciado interno de los links */
-            transition: background-color 0.3s ease; /* Transición suave del color de fondo */
-        }
-
-        nav ul li a:hover {
-            background-color: #555; /* Color de fondo de los links al pasar el mouse */
-        }
-
-        #content {
-            flex-grow: 1; /* Hacer que el contenido principal ocupe el espacio restante */
-            padding: 1em; /* Espaciado interno del contenido principal */
-        }
-
-        /* Para pantallas de ancho menor a 768px */
-        @media (max-width: 768px) {
-            nav {
-                width: 100%; /* Hacer que el menú ocupe todo el ancho disponible */
+    <meta charset="utf-8"/>
+    <title>{{ title }}</title>
+    <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Arial', sans-serif;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
             }
+
+            header {
+            background-color: #3498db; /* Cambia el color de fondo según tu diseño */
+            padding: 20px; /* Ajusta el espaciado interno según tus necesidades */
+            border-bottom-right-radius: 95%; /* Ajusta el radio de la curvatura derecha según tus necesidades */
+            box-shadow: 0px 7px 0px rgba(250, 224, 131, 0.2); /* Agrega una sombra al borde inferior */
+            }
+
+
             #main-container {
-                flex-direction: column; /* Cambiar la dirección de los elementos a columna */
+                display: flex;
+                min-height: 100vh; /* Asegurarse de que el main-container tenga como mínimo el alto de la ventana del navegador */
             }
+
+            nav {
+                background-color: #393838; /* Color de fondo del menú */
+                color: #fff; /* Color del texto del menú */
+                width: 200px; /* Ancho del menú */
+                padding: 1em; /* Espaciado interno del menú */
+                box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Sombra del menú */
+                flex-shrink: 0; /* Evitar que el menú se encoja */
+                min-height: 100vh; /* Asegurarse de que el nav tenga como mínimo el alto de la ventana del navegador */
+            }
+
+            nav ul {
+                list-style-type: none; /* Quitar los bullets de la lista */
+                padding: 0; /* Quitar el padding de la lista */
+            }
+
+            nav ul li a {
+                color: #fff; /* Color de los links del menú */
+                text-decoration: none; /* Quitar el subrayado de los links */
+                display: block; /* Hacer que los links ocupen todo el espacio horizontal disponible */
+                padding: 0.5em 0; /* Espaciado interno de los links */
+                transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+            }
+
+            nav ul li a:hover {
+                background-color: #555; /* Color de fondo de los links al pasar el mouse */
+            }
+
+            #content {
+                flex-grow: 1; /* Hacer que el contenido principal ocupe el espacio restante */
+                padding: 1em; /* Espaciado interno del contenido principal */
+            }
+
+            /* Para pantallas de ancho menor a 768px */
+            @media (max-width: 768px) {
+                nav {
+                    width: 100%; /* Hacer que el menú ocupe todo el ancho disponible */
+                }
+                #main-container {
+                    flex-direction: column; /* Cambiar la dirección de los elementos a columna */
+                }
+            }
+        
+        button:hover {
+            background-color: #2E8BC0; /* Cambiando el color de fondo al hacer hover */
+            cursor: pointer; /* Cambiando el cursor a mano al hacer hover */
+            box-shadow: 0px 0px 15px #5E5E5E; /* Añadiendo una sombra al hacer hover */
+            transform: scale(1.05); /* Aumentando el tamaño al hacer hover */
         }
-    
-    button:hover {
-        background-color: #2E8BC0; /* Cambiando el color de fondo al hacer hover */
-        cursor: pointer; /* Cambiando el cursor a mano al hacer hover */
-        box-shadow: 0px 0px 15px #5E5E5E; /* Añadiendo una sombra al hacer hover */
-        transform: scale(1.05); /* Aumentando el tamaño al hacer hover */
-    }
-    </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+
+            .logo-img {
+                width: 60px;
+                height: auto;
+                margin-right: 20px;
+            }
+        </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <!-- Este código es para el efecto de curvatura del header 
@@ -89,8 +99,8 @@
     </svg>-->
 
     <header>
-        <div style="display: flex; align-items: center;">
-            <img src="/static/images/logo.png" alt="Logo" style="width: 60px; height: auto; margin-right: 20px;"/>
+        <div class="header-container">
+            <img src="/static/images/logo.png" alt="Logo" class="logo-img"/>
             <h1>Presentación Everywhere</h1>
         </div>
     </header>
@@ -116,7 +126,7 @@
     #aqui va el footer
 -->
 <!-- Footer -->
-<footer style="background-color: #f1f1f1; text-align: center; padding: 1em; position: relative; bottom: 0; width: 100%;">
+<footer style="background-color: #f1f1f1; text-align: left; padding: 1em; position: relative; bottom: 0; width: 100%;">
     <span style="margin-right: 2.5em;">
         <img src="/static/images/ig1.png" alt="Instagram Icon" style="width:20px;height:20px;"/> Ai365Alpha
     </span>
@@ -124,7 +134,7 @@
         <img src="/static/images/mail1.png" alt="Email Icon" style="width:20px;height:20px;"/> deivisadames@gmail.com
     </span>
     <span>
-        Copyright: Deivis Adames, 2023 - 2050
+        Inteligencia Artificial para todos...
     </span>
 </footer>
 
