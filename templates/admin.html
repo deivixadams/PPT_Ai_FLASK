@@ -1,21 +1,91 @@
-{% extends "security/base_security.html" %}
+{% extends "base_admin.html" %}
 
-{% block title %}Gestionar Usuarios{% endblock %}
+{% block title %}Dashboard de Administración{% endblock %}
 
-{% block header %}Gestionar Usuarios{% endblock %}
+{% block header %}Dashboard de Administración{% endblock %}
 
 {% block content %}
-    <ul>
-    {% for user in users %}
-        <li>{{ user.email }} 
-            <!-- Enlace para editar -->
-            <a href="{{ url_for('edit_user', user_id=user.id) }}">Editar</a> |
-            <!-- Formulario para eliminar -->
-            <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}" style="display:inline;">
-                <input type="submit" value="Eliminar">
-            </form>
-        </li>
-    {% endfor %}
-    </ul>
-    <!-- Aquí puedes añadir un formulario para crear nuevos usuarios -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Columna de Navegación -->
+        <div class="col-md-3">
+            <h3 class="mb-4">Panel de Administración</h3>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">Home</a>
+                <a href="#" class="list-group-item list-group-item-action">Aplicaciones</a>
+                <a href="#" class="list-group-item list-group-item-action">Cursos</a>
+                <a href="#" class="list-group-item list-group-item-action">Consultoría</a>
+                <a href="#" class="list-group-item list-group-item-action">Blog</a>
+                <a href="#" class="list-group-item list-group-item-action">Cerrar Sesión</a>
+            </div>
+        </div>
+        
+        <!-- Columna Principal -->
+        <div class="col-md-6">
+            <!-- Sección de Usuarios -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Usuarios</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        {% for user in users %}
+                            <li class="mb-2">
+                                {{ user.email }} 
+                                <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                <a href="{{ url_for('delete_user', user_id=user.id) }}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sección de Gráfico -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Gráfico</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Columna de Estadísticas -->
+        <div class="col-md-3">
+            <h3 class="mb-4">Estadísticas</h3>
+            <!-- Widgets de Estadísticas -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Usuarios Totales</h5>
+                    <p class="display-4">{{ users | length }}</p>
+                </div>
+            </div>
+            <!-- Otros Widgets de Estadísticas -->
+        </div>
+    </div>
+</div>
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Usuarios', 'Otros'],
+            datasets: [{
+                label: '# de Items',
+                data: [{{ users | length }}, 0],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
 {% endblock %}
