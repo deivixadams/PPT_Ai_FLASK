@@ -9,14 +9,13 @@
     <div class="row">
         <!-- Columna de Navegación -->
         <div class="col-md-3">
-            <h3 class="mb-4">Panel de Administración</h3>
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action active">Home</a>
                 <a href="#" class="list-group-item list-group-item-action">Aplicaciones</a>
                 <a href="#" class="list-group-item list-group-item-action">Cursos</a>
                 <a href="#" class="list-group-item list-group-item-action">Consultoría</a>
                 <a href="#" class="list-group-item list-group-item-action">Blog</a>
-                <a href="#" class="list-group-item list-group-item-action">Cerrar Sesión</a>
+                <a href="{{ url_for('logout') }}" class="list-group-item list-group-item-action">Cerrar Sesión</a>
             </div>
         </div>
         
@@ -25,7 +24,7 @@
             <!-- Sección de Usuarios -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <h4>Usuarios</h4>
+                    <h6>Usuarios</h6>
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
@@ -42,18 +41,19 @@
             
             <!-- Sección de Gráfico -->
             <div class="card mb-4">
+            <!--        
                 <div class="card-header">
-                    <h4>Gráfico</h4>
+                    <h6>Gráfico</h6>
                 </div>
                 <div class="card-body">
                     <canvas id="myChart"></canvas>
                 </div>
+            -->
             </div>
         </div>
         
         <!-- Columna de Estadísticas -->
         <div class="col-md-3">
-            <h3 class="mb-4">Estadísticas</h3>
             <!-- Widgets de Estadísticas -->
             <div class="card mb-3">
                 <div class="card-body">

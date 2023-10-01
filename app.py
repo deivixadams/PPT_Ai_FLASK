@@ -36,8 +36,6 @@ app.config['SECURITY_REGISTER_USER_TEMPLATE'] = 'security/register.html'
 app.config['SECURITY_POST_LOGIN_VIEW'] = '/post_login'
 
 
-
-
 # Inicializa SQLAlchemy
 db = SQLAlchemy(app)
 
@@ -77,8 +75,6 @@ tools_instance = Application()
 info_converter = InfoConverter()
 creador_presentacion = PresentationCreator()
 
-
-
 '''
 Rutas:
 Tienes varias rutas definidas para diferentes funcionalidades, 
@@ -87,10 +83,7 @@ list_presentations para listar las presentaciones creadas.
 Para la ruta /admin, usas el decorador @roles_required('admin') 
 para asegurarte de que solo los usuarios con el rol de administrador puedan acceder.
 '''
-#-----------------rutas-----------------
-@app.route('/')
-def home():
-    return render_template('index.html', title='MyWebApp')
+
 
 #esto hace que no se requiera autenticación para las rutas que se encuentran en la lista
 ANONYMOUS_ACCESS_ROUTES = [
@@ -105,7 +98,10 @@ Usas un hook before_request para requerir que los usuarios estén autenticados p
 Si el usuario no está autenticado, se redirige a la página de inicio de sesión.
 Si el usuario está autenticado pero su acceso ha expirado, se retorna un error 403.
 '''
-#Esto hace que se requiera autenticación para todas las rutas
+'''
+Esto hace que se requiera autenticación para todas las rutas
+No se puede usar como una ruta en si misma
+'''
 @app.before_request
 def require_login_and_check_expiration():
     # Si la ruta actual está en la lista de acceso anónimo, retorna y no hagas nada.
@@ -121,13 +117,32 @@ def require_login_and_check_expiration():
         abort(403, description="Access expired.")
 
 
+
+#-----------------rutas/vistas/endpoint-----------------
+@app.route('/')
+def home():
+    return render_template('index.html', title='Ai365Alpha')
+
+
+@app.route('/index')
+def index():
+    return render_template('index.html', title='Ai365Alpha')
+
+
 @app.route('/post_login')
 def post_login():
+    return render_template('index.html', title='Ai365Alpha')
+    '''
     if current_user.has_role('admin'):
         return redirect(url_for('admin'))
     else:
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
+    '''
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('security.login'))
 
 #-----------------Administrador especial admin-----------------
 @app.route('/admin')
