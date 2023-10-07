@@ -1,72 +1,73 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form id="myForm" style="margin-top: 40px;">
-    <label for="tema">Tema:</label>
-    <input id="tema" name="tema" placeholder="Digitar el tema de la presentación..." required="" style="width: 30%; padding: 10px; font-size: 16px;" type="text"/>
-    <label for="cantidad">Cantidad de Slides:</label>
-    <input id="cantidad" max="5" min="1" name="cantidad" oninput="updateValue(this.value)" style="height: 30px;" type="range" value="1"/>
-    <span id="cantidadValor">1</span>
+    <form id="myForm" style="margin-top: 40px;">
+        <label for="tema">Tema:</label>
+        <input id="tema" name="tema" placeholder="Digitar el tema de la presentación..." required="" style="width: 30%; padding: 10px; font-size: 16px;" type="text"/>
+        <label for="cantidad">Cantidad de Slides:</label>
+        <input id="cantidad" max="5" min="1" name="cantidad" oninput="updateValue(this.value)" style="height: 30px;" type="range" value="1"/>
+        <span id="cantidadValor">1</span>
 
-        <div style="display: flex; justify-content: left; margin-top: 20px;">
-            <button onclick="submitForm()" style="padding: 0.5em 1em; font-size: 0.9em; margin-right: 1em; margin-left: 3.5em; width: 15%; box-sizing: border-box;" type="button">Enviar
-            </button>
-            <button onclick="resetValue()" style="padding: 0.5em 1em; font-size: 0.9em; margin-right: 1em; margin-left: 0.5em; width: 15%; box-sizing: border-box;" type="reset">Limpiar
-            </button>
-        </div>
-</form>
-<!-- Aquí es donde se añadirá el enlace de descarga cuando esté disponible -->
-
-
-<div id="areaDescarga"></div>
-<script>
-
-function submitForm() {
-        const form = document.getElementById('myForm');
-        const tema = form.querySelector('#tema').value;
-        const cantidad = form.querySelector('#cantidad').value;
-
-        const data = {
-            tema: tema,
-            cantidad: cantidad
-        };
-
-        fetch('{{ url_for("txt2ppt") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.mensaje);  // Muestra el mensaje recibido del servidor
-        })
-        .catch(error => console.error('Error:', error));
-    }
+            <div style="display: flex; justify-content: left; margin-top: 20px;">
+                <button onclick="submitForm()" style="padding: 0.5em 1em; font-size: 0.9em; margin-right: 1em; margin-left: 3.5em; width: 15%; box-sizing: border-box;" type="button">Enviar
+                </button>
+                <button onclick="resetValue()" style="padding: 0.5em 1em; font-size: 0.9em; margin-right: 1em; margin-left: 0.5em; width: 15%; box-sizing: border-box;" type="reset">Limpiar
+                </button>
+            </div>
+    </form>
+    <!-- Aquí es donde se añadirá el enlace de descarga cuando esté disponible -->
 
 
-    function updateValue(value) {
-        document.getElementById('cantidadValor').textContent = value;
-    }
-
-    function resetValue() {
-        // Obtener el formulario y resetearlo
-        document.getElementById('myForm').reset();
-        
-        // Restablecer el valor del span 'cantidadValor' a 1
-        document.getElementById('cantidadValor').textContent = "1";
-}
-
-</script>
-<!-- Si se ha creado un ppt de forma adecuada -->
-{% if mensaje %}
+    <div id="areaDescarga"></div>
     <script>
-        alert("{{ mensaje }}");
+
+        function submitForm() {
+                const form = document.getElementById('myForm');
+                const tema = form.querySelector('#tema').value;
+                const cantidad = form.querySelector('#cantidad').value;
+
+                const data = {
+                    tema: tema,
+                    cantidad: cantidad
+                };
+
+                fetch('{{ url_for("txt2ppt") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.mensaje);  // Muestra el mensaje recibido del servidor
+                })
+                .catch(error => console.error('Error:', error));
+            }
+
+
+            function updateValue(value) {
+                document.getElementById('cantidadValor').textContent = value;
+            }
+
+            function resetValue() {
+                // Obtener el formulario y resetearlo
+                document.getElementById('myForm').reset();
+                
+                // Restablecer el valor del span 'cantidadValor' a 1
+                document.getElementById('cantidadValor').textContent = "1";
+        }
+
     </script>
-{% endif %}
+    <!-- Si se ha creado un ppt de forma adecuada -->
+    {% if mensaje %}
+        <script>
+            alert("{{ mensaje }}");
+        </script>
+    {% endif %}
 
 {% endblock %}
+
 <html><head><style>
     #myForm div button {
         padding: 0.5em 1em; /* Ajusta el padding para cambiar la altura y el ancho del texto dentro del botón */

@@ -2,10 +2,11 @@ from flask import Flask, render_template, request, jsonify, send_from_directory,
 from models.tools import Application
 from models.info_converter import InfoConverter
 from models.presentation_creator import PresentationCreator
-from models.Pttx_Design import PttxDesign
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore
+
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin
+
 from flask_migrate import Migrate
 from flask_security.decorators import roles_required
 from flask_login import current_user
@@ -68,14 +69,11 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, datastore=user_datastore)
 
 
-
 #-----------------instanciamos las clases-----------------
 # Crea una instancia de Application
 tools_instance = Application() 
 info_converter = InfoConverter()
 creador_presentacion = PresentationCreator()
-#designer = PttxDesign() # Crea una instancia de PttxDesign para aplicar el diseño a la presentación
-
 
 '''
 Rutas:
@@ -140,10 +138,10 @@ def post_login():
     else:
         return redirect(url_for('index'))
     '''
-#errr pendi
+
 @app.route('/logout')
 def logout():
-    logout_user() # es parte de flask_login
+    logout_user()
     return redirect(url_for('security.login'))
 
 #-----------------Administrador especial admin-----------------
@@ -185,7 +183,7 @@ def txt2ppt():
         tema = data.get('tema')
         cantidad = data.get('cantidad')
         
-        datatxt = {'tema': tema, 'cantidad': cantidad, 'palabras':50}  # Ajusta según sea necesario.
+        datatxt = {'tema': tema, 'cantidad': cantidad}  # Ajusta según sea necesario.
         
         response = tools_instance.PromptLC_Text2ppt(datatxt)
         
@@ -197,11 +195,8 @@ def txt2ppt():
             return jsonify({'mensaje': mensaje})
         
         ruta_guardado = creador_presentacion.crear_presentacion(dataslide, tema)
-
         if ruta_guardado:  # Si la ruta de guardado existe, la creación fue exitosa.
-            mensaje = f'¡Presentación {ruta_guardado} creada! \n\n Descargar en "Ver presentaciones".'
-            #designer.aplicar_diseño(ruta_guardado, cantidad)
-            
+            mensaje = '¡Presentación creada! Puede descargarla en la página de "Listado de presentaciones".'
         else:  # Si la ruta de guardado es None, hubo un error.
             mensaje = 'Hubo un error al crear la presentación.'
         return jsonify({'mensaje': mensaje})  # Devuelve un JSON con el mensaje

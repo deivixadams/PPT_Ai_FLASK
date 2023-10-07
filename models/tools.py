@@ -8,6 +8,7 @@ from models.text_cleaner import LimpiaTexto
 from langchain.chains import LLMChain
 #from langchain import PromptTemplate
 from langchain.prompts import PromptTemplate
+import logging
 
 #, ExtractorTextoPDF, InfoConverter, openai_langchain, WebReader
 
@@ -31,14 +32,15 @@ class Application:
             print(f"CANTIAD ES--->{datagpt['cantidad']}")
             #pause = input("Vise la cantidad de parrafos")
             prompt = PromptTemplate(
-                input_variables=["tema", "cantidad"],
+                input_variables=["tema", "cantidad", "palabras"],
                 template='''
                     Sobre este tema {tema}.
-                    Genera una cantidad de parrafo igual a {cantidad}. máximo 35 palabras por parrafo.
+                    Genera una cantidad de parrafo igual a {cantidad}. máximo {palabras} palabras por parrafo.
                     Salida diccionario de python por cada parrafo. Colocar los diccionarios en una lista de python con el siguiente formato:
                     "title": aquí debes generar un titulo acorde al parrafo, "content": "aquí colocar el parrafo"
                 '''
             )
+            logging.debug(f"prompt--->: {prompt}")
             cadena = LLMChain(llm=self.llmlc.openai_lc(), prompt=prompt)
             return cadena.run(datagpt)
         except Exception as e:
@@ -51,7 +53,7 @@ class Application:
         prompt = PromptTemplate(
             input_variables=["tema", "tono"],
             template='''
-                Hacer un resumen de {tema} en este tono: {tono}. máximo 70 palabras por parrafo.
+                Hacer un resumen de {tema} en este tono: {tono}. máximo {self.cantidad_pal_parrafos} palabras por parrafo.
                 Salida un diccionario de python por cada parrafo. Colocar los diccionarios en una lista de python con el siguiente formato:
                 "title": aquí debes generar un titulo acorde al parrafo, "content": "aquí colocar el parrafo"
             '''
@@ -66,7 +68,7 @@ class Application:
         prompt = PromptTemplate(
             input_variables=["tema"],
             template='''
-                Hacer un resumen en español del {tema}. máximo 25 palabras por parrafo.
+                Hacer un resumen en español del {tema}. máximo {self.cantidad_pal_parrafos} palabras por parrafo.
                 Salida un diccionario de python por cada parrafo. Colocar los diccionarios en una lista de python con el siguiente formato:
                 "title": aquí debes generar un titulo acorde al parrafo, "content": "aquí colocar el parrafo"
             '''
