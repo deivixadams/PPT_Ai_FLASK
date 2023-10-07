@@ -190,13 +190,12 @@ def txt2ppt():
         response = tools_instance.PromptLC_Text2ppt(datatxt)
         
         dataslide = info_converter.convertir_info(response)  # Actualiza dataslide con la respuesta
-        #creador_presentacion.crear_presentacion(dataslide)
-        
+
         if dataslide is None:
             mensaje = "Error: No se pudo crear la presentación porque 'dataslide' es None"
             return jsonify({'mensaje': mensaje})
         
-        ruta_guardado = creador_presentacion.crear_presentacion(dataslide, tema)
+        ruta_guardado = creador_presentacion.crear_presentacion(dataslide, tema, cantidad)
 
         if ruta_guardado:  # Si la ruta de guardado existe, la creación fue exitosa.
             mensaje = f'¡Presentación {ruta_guardado} creada! \n\n Descargar en "Ver presentaciones".'

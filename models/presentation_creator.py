@@ -8,6 +8,7 @@ import logging
 import tempfile
 import shutil
 import re
+from pptx.dml.color import RGBColor
 
 '''
 Mi sistema genera fotos con imagenes
@@ -19,10 +20,12 @@ class PresentationCreator:
         self.llmlc = OpenAiLC()
         logging.basicConfig(level=logging.DEBUG)
 
-    def crear_presentacion(self, dataslide, tema):
+    def crear_presentacion(self, dataslide, tema, cantidad=1):
         if dataslide is None:
             print("Error: 'dataslide' no puede ser None")
             return None
+
+        #print(f"Data slide viene de tools: {dataslide}")
 
         prs = Presentation()
 
@@ -34,12 +37,24 @@ class PresentationCreator:
         fecha_hora = ahora.strftime("fecha-%d-%m-%Y_hora-%H-%M-%S")
 
         for slide_info in dataslide:
+            
+            #print(f"slide_info: {slide_info}")
+
             slide_layout = prs.slide_layouts[5]  # Título Sólo layout
             slide = prs.slides.add_slide(slide_layout)
 
             # Agregar título
             title_box = slide.shapes.title
             title_box.text = slide_info["title"]
+
+            # Ajustar el tamaño de la fuente del título
+            title_text_frame = title_box.text_frame
+            title_paragraph = title_text_frame.paragraphs[0]
+            title_run = title_paragraph.runs[0]
+            title_run.font.size = Pt(28)  # Cambia '24' al tamaño de fuente que desees
+
+            # Cambiar el color del texto del título a azul
+            title_run.font.color.rgb = RGBColor(0, 0, 255)  # RGB para azul
 
             # Agregar texto a la izquierda
             left_text = Inches(1)

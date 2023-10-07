@@ -29,19 +29,23 @@ class Application:
     '''
     def PromptLC_Text2ppt(self, datagpt):
         try:
-            print(f"CANTIAD ES--->{datagpt['cantidad']}")
+            print(f"Cantidad de slide es--->{datagpt['cantidad']}")
             #pause = input("Vise la cantidad de parrafos")
             prompt = PromptTemplate(
                 input_variables=["tema", "cantidad", "palabras"],
                 template='''
-                    Sobre este tema {tema}.
-                    Genera una cantidad de parrafo igual a {cantidad}. máximo {palabras} palabras por parrafo.
+                    Acerca de este tema {tema}.
+                    Genera {cantidad} parrafos o menos. nunca exceder esa cantidad de parrafos. máximo {palabras} palabras por parrafo.
                     Salida diccionario de python por cada parrafo. Colocar los diccionarios en una lista de python con el siguiente formato:
                     "title": aquí debes generar un titulo acorde al parrafo, "content": "aquí colocar el parrafo"
                 '''
             )
             logging.debug(f"prompt--->: {prompt}")
             cadena = LLMChain(llm=self.llmlc.openai_lc(), prompt=prompt)
+
+            #Ajustando a la cantidad de slides
+            #print(f"resultadod e langchain--->{cadena}")
+
             return cadena.run(datagpt)
         except Exception as e:
             print(f"Error en PromptLC_Text2ppt: {e}")

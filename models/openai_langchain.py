@@ -29,7 +29,7 @@ class OpenAiLC:
             model_name="gpt-3.5-turbo",
             openai_api_key= self.api_key ,
             temperature=1,
-            max_tokens=800,
+            max_tokens=1000,
             model_kwargs={"top_p": 0.9, "frequency_penalty": 0.4}
         )
         return self.llm
